@@ -1,0 +1,12 @@
+<ul>
+  <li *ngFor="let category of categories">
+    <span class="category">{{category.Name}}</span>
+    <span *ngIf="category.Children">
+      <ul>
+        <li *ngFor="let child of category.Children">
+          {{ child.Name }}
+        </li>
+      </ul>
+    </span>
+  </li>
+</ul>
