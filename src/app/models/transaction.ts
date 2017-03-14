@@ -9,4 +9,5 @@ export class Transaction{
     public Amount: Number;
     public Category?: string;    
     public Cleared?: boolean = false;
+    public Balance?: number;
 }

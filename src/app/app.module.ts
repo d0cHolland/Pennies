@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { Transaction } from './models/transaction';
 
 @NgModule({
   declarations: [
@@ -24,4 +25,4 @@ import { CategoriesComponent } from './categories/categories.component';
   bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule{ }
