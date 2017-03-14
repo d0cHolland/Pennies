@@ -1,0 +1,66 @@
+<h1 class="page-header">{{title}}</h1>
+
+<div class="row placeholders">
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
+      alt="Generic placeholder thumbnail">
+    <h4>Label</h4>
+    <span class="text-muted">Something else</span>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
+      alt="Generic placeholder thumbnail">
+    <h4>Label</h4>
+    <span class="text-muted">Something else</span>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
+      alt="Generic placeholder thumbnail">
+    <h4>Label</h4>
+    <span class="text-muted">Something else</span>
+  </div>
+  <div class="col-xs-6 col-sm-3 placeholder">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive"
+      alt="Generic placeholder thumbnail">
+    <h4>Label</h4>
+    <span class="text-muted">Something else</span>
+  </div>
+</div>
+
+<h2 class="sub-header">Transactions</h2>
+<div class="table-responsive">
+  <table class='table table-striped'>
+    <thead>
+      <tr>
+        <td *ngFor='let column of columns'>{{column.title}}</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let t of transactions'>
+        <td (click)="cellClick($event)">
+          <!--<datepicker #dp [(ngModel)]="Date" (navigate)="date = $event.next"></datepicker>-->
+          <span>{{ t.Date | date:'shortDate' }}</span>
+        </td>
+        <td (click)="cellClick($event)">
+          <input (focusOut)='focusOut($event)' class='form-control hidden' [(ngModel)]="t.Description"/>
+          <span>{{ t.Description }}</span>
+        </td>
+        <td (click)="cellClick($event)">
+          <span>{{ t.Category }}</span>
+        </td>
+        <td (click)="cellClick($event)">
+          <span>{{ types[t.Type] }}</span>
+        </td>
+        <td (click)="cellClick($event)">
+          <span>{{ t.Cleared }}</span>
+        </td>
+        <td (click)="cellClick($event)">
+          <span>{{ t.Amount | currency:'USD':true:'1.2-2' }}</span>
+        </td>
+        <td (click)="cellClick($event)">
+          <span>{{ t.Balance }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
