@@ -32,35 +32,91 @@
   <table class='table table-striped'>
     <thead>
       <tr>
-        <td *ngFor='let column of columns'>{{column.title}}</td>
+        <td>Date</td>
+        <td>Description</td>
+        <td>Category</td>
+        <td>Type</td>
+        <td>Cleared</td>
+        <td>Amount</td>
+        <td>Balance</td>
+        <td></td>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor='let t of transactions'>
+      <tr *ngFor='let t of transactions; let i = index;'>
         <td (click)="cellClick($event)">
-          <!--<datepicker #dp [(ngModel)]="Date" (navigate)="date = $event.next"></datepicker>-->
+          <input hidden (blur)='focusOut($event)' class="form-control" placeholder="Date" [(ngModel)]="t.Date"/>
           <span>{{ t.Date | date:'shortDate' }}</span>
         </td>
         <td (click)="cellClick($event)">
-          <input (focusOut)='focusOut($event)' class='form-control hidden' [(ngModel)]="t.Description"/>
+          <input (blur)='focusOut($event)' class='form-control' hidden [(ngModel)]="t.Description" />
           <span>{{ t.Description }}</span>
         </td>
         <td (click)="cellClick($event)">
+          <select class="form-control" hidden [(ngModel)]="t.Category" (blur)='focusOut($event)'>            
+              <option *ngFor='let c of categories' [ngValue]='c.Name' [selected]="c.Name === t.Category" >{{c.Name}}</option>            
+          </select>
           <span>{{ t.Category }}</span>
         </td>
         <td (click)="cellClick($event)">
+          <select class="form-control" hidden [(ngModel)]="t.Type" (blur)='focusOut($event)'>            
+              <option value=1>Expense</option>            
+              <option value=2>Deposit</option>
+              <option value=3>Starting Balance</option>
+              <option value=4>Adjustment</option>
+          </select>
           <span>{{ types[t.Type] }}</span>
         </td>
         <td (click)="cellClick($event)">
-          <span>{{ t.Cleared }}</span>
+          <input type="checkbox" [(ngModel)]='t.Cleared' />
         </td>
         <td (click)="cellClick($event)">
+          <input type="number" class='form-control' hidden [(ngModel)]="t.Amount" (blur)='focusOut($event)' />
           <span>{{ t.Amount | currency:'USD':true:'1.2-2' }}</span>
         </td>
         <td (click)="cellClick($event)">
-          <span>{{ t.Balance }}</span>
+          <span>{{ getBalance(t, i) | currency:'USD':true:'1.2-2' }}</span>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input required form="newTransactionForm" class="form-control" placeholder="Date" [(ngModel)]="tempT.Date" />
+        </td>
+        <td>
+          <input required form="newTransactionForm" class='form-control' [(ngModel)]='tempT.Description' placeholder="Description"
+          />
+        </td>
+        <td>
+          <select required form="newTransactionForm" class="custom-select" [(ngModel)]="tempT.Category" placeholder="Category">            
+              <option value=0 selected hidden>Category</option>
+              <option *ngFor='let c of categories' value='{{c.Name}}'>{{c.Name}}</option>            
+          </select>
+        </td>
+        <td>
+          <select required form="newTransactionForm" class="custom-select" [(ngModel)]="tempT.Type">
+              <option selected hidden>Type</option>            
+              <option value=1>Expense</option>            
+              <option value=2>Deposit</option>
+              <option value=3>Starting Balance</option>
+              <option value=4>Adjustment</option>
+          </select>
+        </td>
+        <td>
+          <input form="newTransactionForm" [(ngModel)]="tempT.Cleared" type="checkbox" />
+        </td>
+        <td>
+          <input required form="newTransactionForm" type="number" [(ngModel)]="tempT.Amount" class='form-control' placeholder="Amount"
+          />
+        </td>
+        <td></td>
+        <td>
+          <button form="newTransactionForm" [disabled]="!form.form.valid" class="button" type="submit">Save</button>
+          <button form="newTransactionForm" class="button" type="reset">Cancel</button>
         </td>
       </tr>
     </tbody>
   </table>
+  <form id='newTransactionForm' #form="ngForm" (ngSubmit)="save()"></form>  
 </div>

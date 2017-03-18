@@ -6,8 +6,7 @@ export class Transaction{
     public Date: Date; 
     public Description: string;
     public Type: TransactionType;
-    public Amount: Number;
+    public Amount: number;
     public Category?: string;    
-    public Cleared?: boolean = false;
-    public Balance?: number;
+    public Cleared?: boolean = false;        
 }
